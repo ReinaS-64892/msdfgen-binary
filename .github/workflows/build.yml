@@ -19,21 +19,6 @@ jobs:
           submodules: true
           path: msdfgen
 
-      # - uses: actions/checkout@v4
-      #   with:
-      #     repository: microsoft/vcpkg
-      #     path: vcpkg
-
-      # - name: setup vcpkg
-      #   run: |
-      #     cd vcpkg
-      #     ./bootstrap-vcpkg.sh
-
-      # - name: install packages
-      #   run: |
-      #     cd msdfgen
-      #     vcpkg install
-
       - name: build
         run: |
           mkdir build
@@ -41,13 +26,35 @@ jobs:
           cmake -S ../msdfgen -B ./ -DMSDFGEN_BUILD_STANDALONE=OFF -DMSDFGEN_BUILD_SHARED_LIBRARY=ON
           cmake --build ./
 
-      - name: debug
+      - name: get date
+        id: date
         run: |
-          ls -alh
-          ls msdfgen -alh
-          ls build -alh -R
+          echo "NowDate=date +%Y%m%d%H%M" >> "$GITHUB_OUTPUT"
+
+      - name: git push tag
+        env:
+          tag: ${{ steps.date.outputs.NowDate }}
+        run: |
+          cd
+          git config user.name  "GitHub Action"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag $tag
+          git push
+          git push origin $tag
 
       # - uses: actions/upload-artifact@v4
       #   with:
-      #     name: msdfgen-build
-      #     path: msdfgen-build.zip
+      #     name: msdfgen-ydms-build
+      #     path: build/out/libmsdfgen.so
+
+      - name: Crate zip
+        run: |
+          zip -r msdf-gen-ydms-binary.zip ./build/out/libmsdfgen.so
+          
+      - name: CrateRelease
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ steps.date.outputs.NowDate }}
+          tag_name: ${{ steps.date.outputs.NowDate }}
+          files: |
+            msdf-gen-ydms-binary.zip
