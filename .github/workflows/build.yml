@@ -16,7 +16,7 @@ jobs:
       - name: setup environment
         run: |
           sudo apt-get update
-          sudo apt-get install cmake gcc make libtinyxml2-dev libpng-dev libfreetype-dev zlib1g-dev
+          sudo apt-get install cmake gcc make
 
       - uses: actions/checkout@v4
         with:
@@ -25,26 +25,26 @@ jobs:
           submodules: true
           path: msdfgen
 
-      # - uses: actions/checkout@v4
-      #   with:
-      #     repository: microsoft/vcpkg
-      #     path: vcpkg
+      - uses: actions/checkout@v4
+        with:
+          repository: microsoft/vcpkg
+          path: vcpkg
 
-      # - name: setup vcpkg
-      #   run: |
-      #     cd vcpkg
-      #     ./bootstrap-vcpkg.sh
+      - name: setup vcpkg
+        run: |
+          cd vcpkg
+          ./bootstrap-vcpkg.sh
 
-      # - name: install packages
-      #   run: |
-      #     cd msdfgen
-      #     vcpkg install
+      - name: install packages
+        run: |
+          cd msdfgen
+          vcpkg install
 
       - name: build
         run: |
           mkdir build
           cd build
-          cmake -S ../msdfgen -B ./ -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON -DMSDFGEN_USE_SKIA=OFF -DMSDFGEN_USE_VCPKG=OFF
+          cmake -S ../msdfgen -B ./ -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON
           cmake --build ./
 
       - name: debug
