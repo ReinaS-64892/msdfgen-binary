@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
 
-      - name: get cmake
+      - name: setup environment
         run: |
           sudo apt-get update
           sudo apt-get install cmake gcc make libtinyxml-dev libpng-dev libfreetype-dev zlib1g-dev
