@@ -16,7 +16,7 @@ jobs:
       - name: get cmake
         run: |
           sudo apt-get update
-          sudo apt-get install cmake
+          sudo apt-get install cmake gcc make tinyxml2 libpng freetype2 zlib
 
       - uses: actions/checkout@v4
         with:
@@ -25,32 +25,32 @@ jobs:
           submodules: true
           path: msdfgen
 
-      - uses: actions/checkout@v4
-        with:
-          repository: microsoft/vcpkg
-          path: vcpkg
+      # - uses: actions/checkout@v4
+      #   with:
+      #     repository: microsoft/vcpkg
+      #     path: vcpkg
 
-      - name: setup vcpkg
-        run: |
-          cd vcpkg
-          ./bootstrap-vcpkg.sh
+      # - name: setup vcpkg
+      #   run: |
+      #     cd vcpkg
+      #     ./bootstrap-vcpkg.sh
 
-      - name: install packages
-        run: |
-          cd msdfgen
-          vcpkg install
+      # - name: install packages
+      #   run: |
+      #     cd msdfgen
+      #     vcpkg install
 
       - name: build
         run: |
           mkdir build
           cd build
-          cmake ../msdfgen
+          cmake -S ../msdfgen -B ./ -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON -DMSDFGEN_USE_SKIA=OFF -DMSDFGEN_USE_VCPKG=OFF
+          cmake --build ./
 
       - name: debug
         run: |
           ls -alh
           ls msdfgen -alh
-          ls vcpkg -alh
           ls build -alh
 
       # - uses: actions/upload-artifact@v4
