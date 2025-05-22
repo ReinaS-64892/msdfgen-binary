@@ -29,28 +29,24 @@ jobs:
       - name: get date
         id: date
         run: |
-          echo "NowDate=date +%Y%m%d%H%M" >> "$GITHUB_OUTPUT"
+          NOW=$(date +"%Y%m%d%H%M")
+          echo "NowDate=${NOW}" >> $GITHUB_OUTPUT
 
       - name: git push tag
         env:
           tag: ${{ steps.date.outputs.NowDate }}
         run: |
-          cd
+          cd msdfgen
           git config user.name  "GitHub Action"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag $tag
           git push
           git push origin $tag
 
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: msdfgen-ydms-build
-      #     path: build/out/libmsdfgen.so
-
       - name: Crate zip
         run: |
           zip -r msdf-gen-ydms-binary.zip ./build/out/libmsdfgen.so
-          
+
       - name: CrateRelease
         uses: softprops/action-gh-release@v2
         with:
