@@ -35,20 +35,25 @@ jobs:
           cd vcpkg
           ./bootstrap-vcpkg.sh
 
-      - name: build to export
+      - name: install packages
         run: |
           cd msdfgen
           vcpkg install
-          vcpkg export --zip --output-dir=../ --output=msdfgen-build
+
+      - name: build
+        run: |
+          mkdir build
+          cd build
+          cmake ../msdfgen
 
       - name: debug
         run: |
           ls -alh
           ls msdfgen -alh
           ls vcpkg -alh
-          unzip -l msdfgen-build.zip
+          ls build -alh
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: msdfgen-build
-          path: msdfgen-build.zip
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: msdfgen-build
+      #     path: msdfgen-build.zip
