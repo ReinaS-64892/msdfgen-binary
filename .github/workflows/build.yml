@@ -50,7 +50,7 @@ jobs:
 
       - name: Crate zip
         run: |
-          zip -r msdf-gen-ydms-binary.zip ./build/out/libmsdfgen.so
+          zip -r msdf-gen-ydms-binary.zip ./build/out/libmsdfgen.so ./msdfgen/LICENSE.txt
 
       - name: CrateRelease
         uses: softprops/action-gh-release@v2
