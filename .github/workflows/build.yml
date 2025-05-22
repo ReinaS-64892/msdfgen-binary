@@ -33,7 +33,7 @@ jobs:
       - name: setup vcpkg
         run: |
           cd vcpkg
-          ./vcpkg/bootstrap-vcpkg.sh
+          ./bootstrap-vcpkg.sh
 
       - name: debug
         run: |
