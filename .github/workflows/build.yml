@@ -2,11 +2,6 @@ name: msdfgen Build
 
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        type: string
-        required: true
-        description: commit hash or tag (ref)
 
 jobs:
   msdf-gen-build:
