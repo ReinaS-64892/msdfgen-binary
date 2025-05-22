@@ -9,14 +9,14 @@ on:
         description: commit hash or tag (ref)
 
 jobs:
-  dxc-build:
+  msdf-gen-build:
     runs-on: ubuntu-22.04
     steps:
 
       - name: get cmake
         run: |
-          sudo apt update
-          sudo apt install cmake
+          sudo apt-get update
+          sudo apt-get install cmake
 
       - uses: actions/checkout@v4
         with:
@@ -30,11 +30,9 @@ jobs:
           repository: microsoft/vcpkg
           path: vcpkg
 
-
       - name: setup vcpkg
         run: |
           cd vcpkg
-          git clone https://github.com/microsoft/vcpkg.git
           ./vcpkg/bootstrap-vcpkg.sh
 
       - name: debug
@@ -42,3 +40,5 @@ jobs:
           ls -alh
           ls msdfgen -alh
           ls vcpkg -alh
+          vcpkg --version
+          vcpkg --help
