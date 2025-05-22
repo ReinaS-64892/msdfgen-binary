@@ -45,7 +45,7 @@ jobs:
         run: |
           ls -alh
           ls msdfgen -alh
-          ls build -alh
+          ls build -alh -R
 
       # - uses: actions/upload-artifact@v4
       #   with:
