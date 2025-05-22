@@ -42,3 +42,9 @@ jobs:
           ls vcpkg -alh
           vcpkg --version
           vcpkg --help
+
+      - name: build
+        run: |
+          cd msdfgen
+          vcpkg install msdfgen
+
