@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -S ../msdfgen -B ./ -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON
+          cmake -S ../msdfgen -B ./ -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON -MSDFGEN_DISABLE_SVG=ON
           cmake --build ./
 
       - name: debug
