@@ -16,7 +16,7 @@ jobs:
       - name: get cmake
         run: |
           sudo apt-get update
-          sudo apt-get install cmake gcc make libtinyxml2-9-dev libpng-dev libfreetype-dev zlib1g-dev
+          sudo apt-get install cmake gcc make libtinyxml-dev libpng-dev libfreetype-dev zlib1g-dev
 
       - uses: actions/checkout@v4
         with:
