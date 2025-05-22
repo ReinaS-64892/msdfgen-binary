@@ -20,8 +20,7 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          repository: Chlumsky/msdfgen
-          ref: ${{ inputs.ref }}
+          repository: Yellow-Dog-Man/msdfgen
           submodules: true
           path: msdfgen
 
@@ -44,7 +43,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -S ../msdfgen -B ./ -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DMSDFGEN_USE_SKIA=OFF -DMSDFGEN_USE_VCPKG=OFF
+          cmake -S ../msdfgen -B ./ -MSDFGEN_BUILD_SHARED_LIBRARY=OFF
           cmake --build ./
 
       - name: debug
