@@ -35,23 +35,18 @@ jobs:
           cd vcpkg
           ./bootstrap-vcpkg.sh
 
-      - name: install packages
+      - name: build
         run: |
           cd msdfgen
           vcpkg install
-
-      - name: build
-        run: |
-          mkdir build
-          cd build
-          cmake -S ../msdfgen -B ./ -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON -MSDFGEN_DISABLE_SVG=ON
-          cmake --build ./
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -BUILD_SHARED_LIBS=ON
+          cmake --build build
 
       - name: debug
         run: |
           ls -alh
           ls msdfgen -alh
-          ls build -alh
+          ls msdfgen/build -alh
 
       # - uses: actions/upload-artifact@v4
       #   with:
