@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -S ../msdfgen -B ./
+          cmake -S ../msdfgen -B ./ -DMSDFGEN_BUILD_SHARED_LIBRARY=ON
           cmake --build ./
 
       - name: debug
