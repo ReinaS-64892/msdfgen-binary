@@ -35,16 +35,14 @@ jobs:
           cd vcpkg
           ./bootstrap-vcpkg.sh
 
+      - name: build to export
+        run: |
+          cd msdfgen
+          vcpkg install
+          vcpkg export -zip --output-dir=../
+
       - name: debug
         run: |
           ls -alh
           ls msdfgen -alh
           ls vcpkg -alh
-          vcpkg --version
-          vcpkg --help
-
-      - name: build
-        run: |
-          cd msdfgen
-          vcpkg install
-
