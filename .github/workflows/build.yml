@@ -39,7 +39,7 @@ jobs:
         run: |
           cd msdfgen
           vcpkg install
-          vcpkg export --zip --output-dir=../ --output=msdfgen-build.zip
+          vcpkg export --zip --output-dir=../ --output=msdfgen-build
 
       - name: debug
         run: |
